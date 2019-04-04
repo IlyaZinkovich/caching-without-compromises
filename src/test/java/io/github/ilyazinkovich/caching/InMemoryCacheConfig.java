@@ -1,6 +1,5 @@
 package io.github.ilyazinkovich.caching;
 
-import java.util.concurrent.CompletableFuture;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -9,15 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableCaching
-class TestContextConfig {
+class InMemoryCacheConfig {
 
   @Bean
-  HttpClient httpClient() {
-    return request -> CompletableFuture.supplyAsync(() -> new Response(request.url));
-  }
-
-  @Bean
-  CachingHttpClient cachingHttpClient(HttpClient httpClient) {
+  CachingHttpClient cachingHttpClient() {
+    final HttpClient httpClient = new RandomHttpClient();
     return new CachingHttpClient(httpClient);
   }
 

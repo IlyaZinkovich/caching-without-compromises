@@ -1,7 +1,6 @@
 package io.github.ilyazinkovich.caching;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
+import java.util.concurrent.CompletableFuture;
 import org.springframework.cache.annotation.Cacheable;
 
 class CachingHttpClient {
@@ -13,12 +12,8 @@ class CachingHttpClient {
   }
 
   @Cacheable(cacheNames = "http", key = "#request.method + #request.url")
-  public Response send(Request request) {
-    try {
-      return httpClient.send(request).get(2, SECONDS);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+  public CompletableFuture<Response> send(Request request) {
+    return httpClient.send(request);
   }
 }
 
