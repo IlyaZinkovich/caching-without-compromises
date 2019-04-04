@@ -3,11 +3,9 @@ package io.github.ilyazinkovich.caching;
 import static io.github.ilyazinkovich.caching.Request.Method.GET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = InMemoryCacheConfig.class)
-@TestInstance(PER_CLASS)
 class CachingHttpClientInMemoryTest {
 
   @Autowired
