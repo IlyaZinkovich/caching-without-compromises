@@ -2,6 +2,7 @@ package io.github.ilyazinkovich.caching;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Supplier;
 
@@ -14,14 +15,14 @@ public class ConcurrentMapCacheable<T> implements Cacheable<T> {
   }
 
   @Override
-  public CompletableFuture<T> getCachedOrLoad(
-      String key, Supplier<CompletableFuture<T>> loader) {
+  public CompletionStage<T> getCachedOrLoad(final String key,
+      final Supplier<CompletionStage<T>> loader) {
     return Optional.ofNullable(cache.get(key))
         .map(CompletableFuture::completedFuture)
         .orElseGet(() -> {
-          CompletableFuture<T> load = loader.get();
+          CompletionStage<T> load = loader.get();
           load.thenAccept(value -> cache.put(key, value));
-          return load;
+          return load.toCompletableFuture();
         });
   }
 }

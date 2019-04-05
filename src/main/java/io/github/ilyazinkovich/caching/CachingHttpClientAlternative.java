@@ -1,6 +1,6 @@
 package io.github.ilyazinkovich.caching;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class CachingHttpClientAlternative {
 
@@ -13,7 +13,7 @@ public class CachingHttpClientAlternative {
     this.cacheable = cacheable;
   }
 
-  public CompletableFuture<Response> send(Request request) {
+  public CompletionStage<Response> send(Request request) {
     String key = request.method + request.url;
     return cacheable.getCachedOrLoad(key, () -> httpClient.send(request));
   }
