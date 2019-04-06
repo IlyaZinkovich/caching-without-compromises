@@ -51,7 +51,7 @@ public class RedisCacheable<T> implements Cacheable<T> {
     return loader.get().thenCompose(value -> cache(key, value));
   }
 
-  private CompletionStage<T> cache(final String key, final T value) {
+  private CompletionStage<T> cache(String key, T value) {
     return redis.set(key, jsonSerializable.toJson(value))
         .thenApply(result -> value)
         .exceptionally(error -> {
