@@ -14,7 +14,7 @@ public class Request {
     return method.name() + url;
   }
 
-  enum Method {
+  public enum Method {
     GET
   }
 }

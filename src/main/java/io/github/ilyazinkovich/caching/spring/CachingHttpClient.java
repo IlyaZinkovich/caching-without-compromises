@@ -1,13 +1,16 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
+import io.github.ilyazinkovich.caching.HttpClient;
+import io.github.ilyazinkovich.caching.Request;
+import io.github.ilyazinkovich.caching.Response;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.cache.annotation.Cacheable;
 
-class CachingHttpClient {
+public class CachingHttpClient {
 
   private final HttpClient httpClient;
 
-  CachingHttpClient(HttpClient httpClient) {
+  public CachingHttpClient(HttpClient httpClient) {
     this.httpClient = httpClient;
   }
 

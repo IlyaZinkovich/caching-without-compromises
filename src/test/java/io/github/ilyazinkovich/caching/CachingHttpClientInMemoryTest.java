@@ -4,6 +4,7 @@ import static io.github.ilyazinkovich.caching.Request.Method.GET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import io.github.ilyazinkovich.caching.spring.CachingHttpClient;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

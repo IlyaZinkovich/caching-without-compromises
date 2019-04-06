@@ -1,8 +1,8 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.alternative;
 
 import java.util.Optional;
 
-public interface JsonSerializable<T> {
+public interface Serializer<T> {
 
   String toJson(T value);
 

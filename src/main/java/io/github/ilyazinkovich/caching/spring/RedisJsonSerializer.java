@@ -1,4 +1,4 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.core.JsonProcessingException;

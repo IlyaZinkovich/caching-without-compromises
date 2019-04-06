@@ -1,4 +1,4 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.alternative;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -15,8 +15,8 @@ public class ConcurrentMapCacheable<T> implements Cacheable<T> {
   }
 
   @Override
-  public CompletionStage<T> getCachedOrLoad(final String key,
-      final Supplier<CompletionStage<T>> loader) {
+  public CompletableFuture<T> getCachedOrLoad(final String key,
+      final Supplier<CompletableFuture<T>> loader) {
     return Optional.ofNullable(cache.get(key))
         .map(CompletableFuture::completedFuture)
         .orElseGet(() -> {

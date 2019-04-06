@@ -1,13 +1,16 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
+import io.github.ilyazinkovich.caching.HttpClient;
+import io.github.ilyazinkovich.caching.Request;
+import io.github.ilyazinkovich.caching.Response;
 import java.util.concurrent.ExecutionException;
 import org.springframework.cache.annotation.Cacheable;
 
-class BlockingCachingHttpClient {
+public class BlockingCachingHttpClient {
 
   private final HttpClient httpClient;
 
-  BlockingCachingHttpClient(HttpClient httpClient) {
+  public BlockingCachingHttpClient(HttpClient httpClient) {
     this.httpClient = httpClient;
   }
 

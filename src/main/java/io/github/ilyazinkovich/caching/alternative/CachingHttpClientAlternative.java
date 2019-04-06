@@ -1,5 +1,9 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.alternative;
 
+import io.github.ilyazinkovich.caching.HttpClient;
+import io.github.ilyazinkovich.caching.Request;
+import io.github.ilyazinkovich.caching.Response;
+import io.github.ilyazinkovich.caching.alternative.Cacheable;
 import java.util.concurrent.CompletionStage;
 
 public class CachingHttpClientAlternative {

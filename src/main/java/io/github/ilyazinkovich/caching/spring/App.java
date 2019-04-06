@@ -1,6 +1,8 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
+import io.github.ilyazinkovich.caching.Request;
 import io.github.ilyazinkovich.caching.Request.Method;
+import io.github.ilyazinkovich.caching.Response;
 import java.util.concurrent.ExecutionException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
