@@ -16,7 +16,8 @@ public class CachingConfig {
       RedisAsyncCommands<String, String> redis, Gson gson) {
     HttpClient httpClient = new RandomHttpClient();
     GsonSerializer<Response> serializer = new GsonSerializer<>(gson, Response.class);
-    RedisCacheable<Response> cacheable = new RedisCacheable<>(redis, serializer);
+    String cacheName = "http";
+    RedisCacheable<Response> cacheable = new RedisCacheable<>(redis, serializer, cacheName);
     return new CachingHttpClientAlternative(httpClient, cacheable);
   }
 }

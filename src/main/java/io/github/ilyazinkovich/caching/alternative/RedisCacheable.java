@@ -13,12 +13,14 @@ public class RedisCacheable<T> implements Cacheable<T> {
   private static final Logger log = LoggerFactory.getLogger(RedisCacheable.class);
   private final RedisAsyncCommands<String, String> redis;
   private final Serializer<T> jsonSerializable;
+  private final String cacheName;
 
   RedisCacheable(
       RedisAsyncCommands<String, String> redis,
-      Serializer<T> jsonSerializable) {
+      Serializer<T> jsonSerializable, final String cacheName) {
     this.redis = redis;
     this.jsonSerializable = jsonSerializable;
+    this.cacheName = cacheName;
   }
 
   @Override
@@ -30,11 +32,12 @@ public class RedisCacheable<T> implements Cacheable<T> {
 
   private CompletableFuture<Optional<String>> getCached(
       String key) {
-    return redis.get(key)
+    return redis.get(toRedisKey(key))
         .toCompletableFuture()
         .thenApply(Optional::ofNullable)
         .exceptionally(error -> {
-          log.warn("Unable to get cached value for key {}.", key, error);
+          log.warn("Unable to get cached value for key {} in cache {}.",
+              key, cacheName, error);
           return Optional.empty();
         });
   }
@@ -52,11 +55,16 @@ public class RedisCacheable<T> implements Cacheable<T> {
   }
 
   private CompletionStage<T> cache(String key, T value) {
-    return redis.set(key, jsonSerializable.toJson(value))
+    return redis.set(toRedisKey(key), jsonSerializable.toJson(value))
         .thenApply(result -> value)
         .exceptionally(error -> {
-          log.warn("Unable to cache value {} for key {}.", value, key, error);
+          log.warn("Unable to cache value {} for key {} in cache {}.",
+              value, key, cacheName, error);
           return value;
         });
+  }
+
+  private String toRedisKey(final String key) {
+    return String.format("%s:%s", cacheName, key);
   }
 }
