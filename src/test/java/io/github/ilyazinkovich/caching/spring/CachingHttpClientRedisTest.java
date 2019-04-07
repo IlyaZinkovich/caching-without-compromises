@@ -1,12 +1,12 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
 import static io.github.ilyazinkovich.caching.Request.Method.GET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import io.github.ilyazinkovich.caching.spring.BlockingCachingHttpClient;
-import io.github.ilyazinkovich.caching.spring.CachingHttpClient;
+import io.github.ilyazinkovich.caching.Request;
+import io.github.ilyazinkovich.caching.Response;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

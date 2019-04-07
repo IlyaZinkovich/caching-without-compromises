@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CachingConfig {
+class CachingConfig {
 
   @Bean
   CachingHttpClientAlternative cachingHttpClientAlternative(
       RedisAsyncCommands<String, String> redis, Gson gson) {
-    HttpClient httpClient = new RandomHttpClient();
-    GsonSerializer<Response> serializer = new GsonSerializer<>(gson, Response.class);
     String cacheName = "http";
+    GsonSerializer<Response> serializer = new GsonSerializer<>(gson, Response.class);
     RedisCacheable<Response> cacheable = new RedisCacheable<>(redis, serializer, cacheName);
+    HttpClient httpClient = new RandomHttpClient();
     return new CachingHttpClientAlternative(httpClient, cacheable);
   }
 }

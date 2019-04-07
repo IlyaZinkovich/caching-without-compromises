@@ -10,7 +10,7 @@ public class GsonSerializer<T> implements Serializer<T> {
 
   private static final Logger log = LoggerFactory.getLogger(GsonSerializer.class);
   private final Gson gson;
-  private Class<T> targetClass;
+  private final Class<T> targetClass;
 
   GsonSerializer(final Gson gson, final Class<T> targetClass) {
     this.gson = gson;

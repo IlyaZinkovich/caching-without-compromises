@@ -2,7 +2,7 @@ package io.github.ilyazinkovich.caching.alternative;
 
 import java.util.Optional;
 
-public interface Serializer<T> {
+interface Serializer<T> {
 
   String toJson(T value);
 

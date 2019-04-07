@@ -1,8 +1,10 @@
-package io.github.ilyazinkovich.caching;
+package io.github.ilyazinkovich.caching.spring;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
+import io.github.ilyazinkovich.caching.HttpClient;
+import io.github.ilyazinkovich.caching.RandomHttpClient;
 import io.github.ilyazinkovich.caching.spring.BlockingCachingHttpClient;
 import io.github.ilyazinkovich.caching.spring.CachingHttpClient;
 import org.springframework.beans.factory.annotation.Value;
