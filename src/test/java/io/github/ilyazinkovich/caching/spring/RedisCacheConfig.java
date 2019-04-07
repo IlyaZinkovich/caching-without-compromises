@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import io.github.ilyazinkovich.caching.HttpClient;
 import io.github.ilyazinkovich.caching.RandomHttpClient;
-import io.github.ilyazinkovich.caching.spring.BlockingCachingHttpClient;
-import io.github.ilyazinkovich.caching.spring.CachingHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

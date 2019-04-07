@@ -25,8 +25,9 @@ import org.testcontainers.containers.GenericContainer;
 @TestInstance(Lifecycle.PER_CLASS)
 class CachingHttpClientRedisTest {
 
-  GenericContainer redis = new FixedHostPortGenericContainer("redis")
-      .withFixedExposedPort(6379, 6379);
+  private final GenericContainer redis =
+      new FixedHostPortGenericContainer("redis")
+          .withFixedExposedPort(6379, 6379);
   @Autowired
   private CachingHttpClient cachingHttpClient;
   @Autowired

@@ -2,7 +2,6 @@ package io.github.ilyazinkovich.caching.spring;
 
 import io.github.ilyazinkovich.caching.HttpClient;
 import io.github.ilyazinkovich.caching.RandomHttpClient;
-import io.github.ilyazinkovich.caching.spring.CachingHttpClient;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;

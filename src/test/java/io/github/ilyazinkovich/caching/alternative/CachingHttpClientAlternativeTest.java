@@ -3,6 +3,7 @@ package io.github.ilyazinkovich.caching.alternative;
 import static io.github.ilyazinkovich.caching.Request.Method.GET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 import com.google.gson.Gson;
 import io.github.ilyazinkovich.caching.Request;
@@ -11,19 +12,31 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import java.util.concurrent.ExecutionException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.testcontainers.containers.FixedHostPortGenericContainer;
+import org.testcontainers.containers.GenericContainer;
 
+@TestInstance(PER_CLASS)
 class CachingHttpClientAlternativeTest {
 
   private static final String REDIS_HOST = "localhost";
   private static final int REDIS_PORT = 6379;
-  private final RedisURI uri =
-      RedisURI.create(REDIS_HOST, REDIS_PORT);
-  private final RedisAsyncCommands<String, String> redis =
-      RedisClient.create(uri).connect().async();
+  private final GenericContainer redisContainer =
+      new FixedHostPortGenericContainer("redis")
+          .withFixedExposedPort(REDIS_PORT, REDIS_PORT);
   private final Gson gson = new Gson();
-  private final CachingHttpClientAlternative cachingHttpClient =
-      new CachingConfig().cachingHttpClientAlternative(redis, gson);
+  private CachingHttpClientAlternative cachingHttpClient;
+
+  @BeforeAll
+  void setup() {
+    redisContainer.start();
+    RedisURI uri = RedisURI.create(REDIS_HOST, REDIS_PORT);
+    RedisAsyncCommands<String, String> redis = RedisClient.create(uri).connect().async();
+    cachingHttpClient = new CachingConfig().cachingHttpClientAlternative(redis, gson);
+  }
 
   @Test
   void test() throws ExecutionException, InterruptedException {
@@ -38,5 +51,10 @@ class CachingHttpClientAlternativeTest {
 
     assertEquals(originalResponse, cachedResponse);
     assertNotEquals(cachedResponse, differentResponse);
+  }
+
+  @AfterAll
+  void shutdown() {
+    redisContainer.stop();
   }
 }
